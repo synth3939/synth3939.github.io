@@ -1,74 +1,235 @@
-<!DOCTYPE html>
-<html lang="ja">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="style.css" rel="stylesheet">
-    <title>synth3939のポートフォリオ</title>
-  </head>
-  <body>
-    <main>
-      <h1>synth3939</h1>
+/* --------------------
+   色の設定（ここを変えると全体の色が変わる）
+-------------------- */
+:root {
+  --theme-color: #00a0a0;
+  --theme-light: #5fd3d3;
+  --bg-color: #ffffff;
+  --card-color: #f7fbfb;
+  --text-color: #333333;
+  --line-color: #e5e5e5;
+}
  
-      <h2>About</h2>
-      <p>
-        synth3939です。ゲームと散歩が好きです。<br>
-        簡単なプログラミングができます。いつかアプリを作ってみたいです。
-      </p>
+/* ダークモードの色 */
+:root[data-theme="dark"] {
+  --bg-color: #14191c;
+  --card-color: #1e262a;
+  --text-color: #e6eaec;
+  --line-color: #33404a;
+}
  
-      <h3>Profile</h3>
-      <ul>
-        <li>名前 synth3939</li>
-        <li>所在地 tokyo</li>
-        <li>得意領域 web開発、AIコーディング</li>
-      </ul>
+/* --------------------
+        全体
+-------------------- */
+* { box-sizing: border-box; }
  
-      <h3>Skills</h3>
-      <table>
-        <tr>
-          <th>OS</th>
-          <td>Windows</td>
-        </tr>
-        <tr>
-          <th>Engine, Frameworks</th>
-          <td>Node.js,Python</td>
-        </tr>
-        <tr>
-          <th>Tool, MiddleWare</th>
-          <td>Git</td>
-        </tr>
-        <tr>
-          <th>資格・免許</th>
-          <td>英検2級</td>
-        </tr>
-      </table>
+html {
+  scroll-behavior: smooth;   /* メニューを押すとなめらかに移動 */
+  scroll-padding-top: 70px;  /* 固定メニューに隠れないように */
+}
  
-      <h3>Works</h3>
-      <p>まだ何も作れていませんがこれから頑張ります。</p>
-      <ul>
-        <li>
-          作った作品
-          <ul>
-            <!-- 作品ができたら <li>作品名</li> をここに追加 -->
-          </ul>
-        </li>
-      </ul>
+body {
+  margin: 0;
+  background: var(--bg-color);
+  color: var(--text-color);
+  font-family: "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+  line-height: 1.8;
+  transition: background 0.3s, color 0.3s;
+}
  
-      <h3>Contact</h3>
-      <p>連絡先や SNS のアカウントを書きましょう。</p>
-      <ul>
-        <!-- 例: <li><a href="https://github.com/synth3939">GitHub</a></li> -->
-      </ul>
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
  
-      <h3>History</h3>
-      <p>学歴、職歴、アルバイト、インターン経験など。</p>
-      <table>
-        <tr>
-          <th>2026 年</th>
-          <td>高校卒業</td>
-        </tr>
-      </table>
-    </main>
-  </body>
-</html>
+/* --------------------
+   上のメニュー
+-------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 20px;
+  background: var(--bg-color);
+  border-bottom: 1px solid var(--line-color);
+}
+ 
+.logo { color: var(--theme-color); }
+.site-header nav { flex: 1; }
+.site-header nav a { margin-right: 16px; }
+ 
+#theme-btn {
+  border: none;
+  background: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+ 
+/* --------------------
+   一番上の大きな画面
+-------------------- */
+.hero {
+  text-align: center;
+  padding: 100px 20px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--theme-color), #6a5acd);
+}
+ 
+.hero h1 {
+  color: #fff;
+  border: none;
+  font-size: 2.5rem;
+  margin: 0 0 10px;
+}
+ 
+.button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 32px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--theme-color);
+  font-weight: bold;
+  transition: transform 0.2s;
+}
+.button:hover {
+  transform: scale(1.08);
+  text-decoration: none;
+}
+ 
+/* --------------------
+        見出し
+-------------------- */
+h1, h2, h3 {
+  color: var(--theme-color);
+  line-height: 1.4;
+}
+ 
+h2 {
+  border-bottom: dashed 0.1em var(--theme-color);
+  padding-bottom: 0.3em;
+  margin: 2.5em 0 0.8em;
+}
+ 
+/* --------------------
+        リンク
+-------------------- */
+a {
+  color: var(--theme-color);
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+ 
+/* --------------------
+        リスト
+-------------------- */
+ul {
+  list-style: none;
+  padding-left: 0.5em;
+}
+li { margin-bottom: 0.4em; }
+li:before {
+  content: "★";
+  color: var(--theme-color);
+  margin-right: 0.5em;
+}
+ 
+/* --------------------
+   カード
+-------------------- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+ 
+.card {
+  display: block;
+  padding: 20px;
+  border: 1px solid var(--line-color);
+  border-radius: 12px;
+  background: var(--card-color);
+  color: var(--text-color);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+.card:hover {
+  transform: translateY(-6px);   /* ふわっと浮く */
+  box-shadow: 0 10px 20px rgba(0, 160, 160, 0.25);
+  text-decoration: none;
+}
+ 
+.card-img {
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--theme-light), var(--theme-color));
+}
+.card h3 { margin: 12px 0 4px; }
+.card p  { margin: 0; font-size: 0.9rem; }
+ 
+/* --------------------
+          表
+-------------------- */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0 2em;
+  border-radius: 8px;
+  overflow: hidden;
+}
+tr { background: var(--bg-color); }
+tr:nth-child(2n) { background: var(--card-color); }
+th {
+  background: var(--theme-color);
+  color: #fff;
+  text-align: left;
+}
+th, td {
+  border: 1px solid var(--line-color);
+  padding: 0.7rem 1rem;
+}
+ 
+/* --------------------
+   開閉するQ&A
+-------------------- */
+details {
+  margin-bottom: 10px;
+  padding: 12px 16px;
+  border: 1px solid var(--line-color);
+  border-radius: 8px;
+  background: var(--card-color);
+}
+summary {
+  cursor: pointer;
+  font-weight: bold;
+  color: var(--theme-color);
+}
+details p { margin: 10px 0 0; }
+ 
+/* --------------------
+   フッター
+-------------------- */
+footer {
+  text-align: center;
+  padding: 30px;
+  font-size: 0.85rem;
+  border-top: 1px solid var(--line-color);
+}
+ 
+/* --------------------
+   スマホ用
+-------------------- */
+@media (max-width: 600px) {
+  .hero { padding: 70px 20px; }
+  .hero h1 { font-size: 1.8rem; }
+  .site-header nav a { margin-right: 10px; font-size: 0.9rem; }
+  table { display: block; overflow-x: auto; }
+}
  
